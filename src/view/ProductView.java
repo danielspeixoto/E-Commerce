@@ -1,4 +1,4 @@
-package sample.view;
+package view;
 
 /**
  * Created by daniel on 22/07/17.

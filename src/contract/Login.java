@@ -1,4 +1,4 @@
-package sample.contract;
+package contract;
 
 /**
  * Created by daniel on 22/07/17.

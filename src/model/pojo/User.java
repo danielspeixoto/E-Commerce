@@ -1,4 +1,4 @@
-package sample.model.pojo;
+package model.pojo;
 
 /**
  * Created by daniel on 22/07/17.

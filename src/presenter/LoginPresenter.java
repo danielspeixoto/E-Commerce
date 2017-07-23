@@ -1,6 +1,6 @@
-package sample.presenter;
+package presenter;
 
-import sample.contract.Login;
+import contract.Login;
 
 /**
  * Created by daniel on 22/07/17.

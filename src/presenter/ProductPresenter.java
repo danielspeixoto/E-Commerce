@@ -1,4 +1,4 @@
-package sample.presenter;
+package presenter;
 
 /**
  * Created by daniel on 22/07/17.
