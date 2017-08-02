@@ -1,31 +1,32 @@
 package presenter;
 
-import contract.Login;
-import model.LoginModel;
+import contract.CreateUser;
+import model.CreateUserModel;
+import model.pojo.User;
 import util.Validate;
 import view.HomeView;
 
 /**
- * Created by daniel on 22/07/17.
+ * Created by daniel on 02/08/17.
  */
-public class LoginPresenter implements Login.Presenter {
+public class CreateUserPresenter implements CreateUser.Presenter {
 
-    private Login.View view;
-    private Login.Model model;
+    private CreateUser.View view;
+    private CreateUser.Model model;
 
-    public LoginPresenter(Login.View view) {
+    public CreateUserPresenter(CreateUser.View view) {
         this.view = view;
-        this.model = new LoginModel(this);
+        this.model = new CreateUserModel(this);
     }
 
     @Override
-    public void login(String email, String password) {
-        String result = Validate.email(email);
+    public void createUser(User user) {
+        String result = Validate.validate(user);
         if (result.equals(Validate.OK)) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    model.login(email, password);
+                    model.createUser(user);
                 }
             }).start();
         } else {
@@ -34,7 +35,7 @@ public class LoginPresenter implements Login.Presenter {
     }
 
     @Override
-    public void onLoginSuccess() {
+    public void onCreateSuccess() {
         view.changePanel(new HomeView());
     }
 

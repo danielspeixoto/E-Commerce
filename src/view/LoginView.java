@@ -1,35 +1,65 @@
 package view;
 
 import contract.Login;
+import presenter.LoginPresenter;
+import view.component.InputField;
+import view.component.PasswordField;
 
 import javax.swing.*;
-import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by daniel on 22/07/17.
  */
-public class LoginView implements Login.View {
+public class LoginView extends BaseView implements Login.View {
+
+    private InputField emailField;
+    private PasswordField passwordField;
+    private JButton loginButton;
+    private JButton createAccountButton;
+
+    private Login.Presenter presenter;
 
     public LoginView() {
-        JFrame frame = new JFrame("Bem-Vindo!");
-        JPanel panel = new JPanel();
+        super();
+        emailField = new InputField("Email");
+        emailField.setPosition(25, 50);
+        passwordField = new PasswordField("Senha");
+        passwordField.setPosition(25, 100);
+        loginButton = new JButton("Login");
+        loginButton.setBounds(75, 160, 150, 30);
+        createAccountButton = new JButton("Criar conta");
+        createAccountButton.setBounds(75, 200, 150, 30);
 
-        JTextField emailField = new JTextField(20);
-        emailField.setMaximumSize(new Dimension(500, 75));
-        emailField.setMargin(new Insets(5,5,5,5));
-        emailField.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JTextField passwordField = new JTextField("Senha");
-        JButton createAccountButton = new JButton("Criar conta");
+        add(emailField);
+        add(passwordField);
+        add(createAccountButton);
+        add(loginButton);
 
-        panel.add(passwordField);
-        panel.add(emailField);
-        panel.add(createAccountButton);
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        presenter = new LoginPresenter(this);
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                presenter.login(
+                        emailField.getText().toLowerCase().trim(),
+                        passwordField.getText()
+                );
+            }
+        });
+        createAccountButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                changePanel(new CreateUserView());
+            }
+        });
+    }
 
-        frame.add(panel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(300,300);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+    @Override
+    public void onPostCreated() {
+        super.onPostCreated();
+        frame.setSize(300, 280);
+        frame.setResizable(false);
+        frame.setTitle("Bem-Vindo!");
     }
 }

@@ -1,20 +1,22 @@
 package contract;
 
+import model.pojo.User;
+
 /**
- * Created by daniel on 22/07/17.
+ * Created by daniel on 02/08/17.
  */
-public class Login {
+public class CreateUser {
 
     public interface View extends Base.View {
     }
 
     public interface Presenter extends Base.Presenter {
-        void login(String username, String password);
+        void createUser(User user);
 
-        void onLoginSuccess();
+        void onCreateSuccess();
     }
 
     public interface Model extends Base.Model {
-        void login(String username, String password);
+        void createUser(User user);
     }
 }
